@@ -29,6 +29,11 @@ User Function BANCO001()
     RestArea(aArea) 
 Return
 
+
+
+
+
+
 //Outra forma utilizando cQuery
  /*Local cQuery := ""
     Local cAlias := GetNextAlias()

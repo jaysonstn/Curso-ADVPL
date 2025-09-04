@@ -13,7 +13,7 @@
 @see (links_or_references)
 /*/
 User Function BANCO001()
-   /* Local aArea := SB1->(GetArea())
+    Local aArea := SB1->(GetArea())
     //Local cMsg := ""
 
     //Abre Tabela
@@ -26,9 +26,11 @@ User Function BANCO001()
         Alert(SB1->B1_DESC)
     Endif
 
-    RestArea(aArea) */
+    RestArea(aArea) 
+Return
 
- Local cQuery := ""
+//Outra forma utilizando cQuery
+ /*Local cQuery := ""
     Local cAlias := GetNextAlias()
     
     // Query SQL direta
@@ -55,4 +57,5 @@ User Function BANCO001()
     
     (cAlias)->(DbCloseArea())
     
-Return
+ Return*/
+

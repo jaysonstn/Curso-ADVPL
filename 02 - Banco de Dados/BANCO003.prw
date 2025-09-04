@@ -37,7 +37,7 @@ User Function BANCO003()
     EndDo
 
     Alert(Len(aDados))
-    
+
         For nCount := 1 To Len(aDados)
             MsgInfo(aDados[nCount])
         Next nCount

@@ -1,0 +1,35 @@
+#include "Totvs.ch"
+#include "apWebSrv.ch"
+//Includes obrigatórios
+
+WSSERVICE SERVERTIME Description "VEJA O HORARIO ATUAL"
+//Declaração da classe de Web Services em ADVPL
+
+    WSDATA cHorario as String
+    WSDATA cParametro as String Optional
+	//Declaração das propriedades da classe
+
+    WSMETHOD GetServerTime Description "Método de teste para exibir a hora atual"
+	//Declaração do método da classe
+
+ENDWSSERVICE
+//Encerramento da declaração da classe
+
+WSMETHOD GetServerTime WSSEND cHorario WSRECEIVE cParametro WSSERVICE SERVERTIME
+//Codificação do método declarado anteriormente
+
+Local aData := {}
+Local cDataUTC := DateTimeUTC(aData)
+//Declaração de variáveis locais
+
+    If Empty(cParametro)
+        ::cHorario := TIME()
+    ElseIf cParametro = "UTC"
+        ::cHorario := cDataUTC
+    Else
+        ::cHorario := "Parâmetro não suportado"
+    EndIf
+	//Notem que a atribuição da variável de retorno tem uma sintaxe diferenciada
+
+Return .T.
+// Retorno verdadeiro para o client

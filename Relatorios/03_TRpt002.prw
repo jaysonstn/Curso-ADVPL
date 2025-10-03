@@ -19,8 +19,9 @@ User Function TRpt002()
 
     Pergunte(cPerg,.T.) //SX1
     oReport := RPTSTRUC(cPerg)
-    oReport:printDialog()
     oReport:HideParamPage()
+    oReport:printDialog()
+    
 
 
 Return 

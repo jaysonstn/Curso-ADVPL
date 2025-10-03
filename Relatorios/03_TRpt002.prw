@@ -101,12 +101,12 @@ Static Function RPTPrint(oReport)
                 While TEMP->FORNECEDOR == cNumCod
                     oReport:IncMeter()
                     IncProc("Imprimindo dados..."+ Alltrim(TEMP->FORNECEDOR))
-                    //oSection2:Cell("C7_EMISSAO"):SetValue(TEMP->EMISSAO)
+                    oSection2:Cell("C7_EMISSAO"):SetValue(TEMP->EMISSAO)
                     oSection2:Cell("C7_PRODUTO"):SetValue(TEMP->PRODUTO)
                     oSection2:Cell("C7_DESCRI"):SetValue(TEMP->DESCRICAO)
-                    //oSection2:Cell("C7_UM"):SetValue(TEMP->UM)
+                    oSection2:Cell("C7_UM"):SetValue(TEMP->UM)
                     oSection2:Cell("C7_QUANT"):SetValue(TEMP->QUANTIDADE)
-                    //oSection2:Cell("C7_PRECO"):SetValue(TEMP->PRECO)
+                    oSection2:Cell("C7_PRECO"):SetValue(TEMP->PRECO)
                     oSection2:Cell("C7_TOTAL"):SetValue(TEMP->TOTAL)
                     oSection2:PrintLine()
 
@@ -145,10 +145,13 @@ Static Function RPTSTRUC(cNome)
     
 
     oSection2 := TRSection():New(oReport,"Produtos",{"SC7"},Nil,.F.,.T.)
+    TRCell():New(oSection2,"C7_EMISSAO"  ,"TEMP","EMISSAO"    ,"@!",8)
     TRCell():New(oSection2,"C7_PRODUTO"  ,"TEMP","PRODUTO"    ,"@!",8)
     TRCell():New(oSection2,"C7_DESCRI"  ,"TEMP","DESCRICAO"    ,"@!",100)
+    TRCell():New(oSection2,"C7_UM"  ,"TEMP","UM"              ,"@!",2)
     TRCell():New(oSection2,"C7_QUANT"  ,"TEMP","QUANTIDADE"    ,"@!",12)
-    TRCell():New(oSection2,"C7_TOTAL"  ,"TEMP","TOTAL"    ,"@!",12)
+    TRCell():New(oSection2,"C7_PRECO"  ,"TEMP","PRECO"        ,"@!",12)
+    TRCell():New(oSection2,"C7_TOTAL"  ,"TEMP","TOTAL"        ,"@!",12)
 
     oSection1:SetPageBreak(.F.) //Quebra de seção
 

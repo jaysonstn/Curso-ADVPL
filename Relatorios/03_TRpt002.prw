@@ -52,7 +52,7 @@ Static Function RPTPrint(oReport)
         cQuery += " C7_PRECO PRECO, "
         cQuery += " C7_TOTAL TOTAL "
         cQuery += " FROM SC7990 "
-        cQuery += " WHERE D_E_L_E_T_ = '' AND C7_FILIAL = '"+MV_PAR01+"' "
+        cQuery += " WHERE D_E_L_E_T_ = '' AND C7_FORNECE = '"+MV_PAR01+"' "
 
         //Verifica se a tabela já está aberta
             If Select("TEMP") <> 0
@@ -77,29 +77,29 @@ Static Function RPTPrint(oReport)
             oSection1:Init()
             oReport:IncMeter()
 
-            cNumCod := TEMP->C7_FORNECEDOR
-            IncProc("Imprimindo Produtos "+ Alltrim(TEMP->C7_FORNECEDOR))
+            cNumCod := TEMP->FORNECEDOR
+            IncProc("Imprimindo Produtos "+ Alltrim(TEMP->FORNECEDOR))
 
             //Imprimindo primeira seção:
-            oSection1:Cell("C7_PRODUTO"):SetValue(TEMP->C7_PRODUTO)
-            oSection1:Cell("C7_DESCRI"):SetValue(TEMP->C7_DESCRI)
+            oSection1:Cell("FORNECEDOR"):SetValue(TEMP->FORNECEDOR)
+            
             oSection1:PrintLine()
 
             //Iniciando a segunda seção
             oSection2:Init()
 
                 //Verifica se o código é o mesmo, se sim, imprime os dados
-                While TEMP->C7_FORNECEDOR == cNumCod
+                While TEMP->FORNECEDOR == cNumCod
                     oReport:IncMeter()
-                    IncProc("Imprimindo dados..."+ Alltrim(TEMP->C7_FORNECEDOR))
-                        oSection2:Cell("C7_EMISSAO"):SetValue(TEMP->C7_EMISSAO)
-                        oSection2:Cell("C7_PRODUTO"):SetValue(TEMP->C7_PRODUTO)
-                        oSection2:Cell("C7_DESCRI"):SetValue(TEMP->C7_DESCRI)
-                        oSection2:Cell("C7_UM"):SetValue(TEMP->C7_UM) 
-                        oSection2:Cell("C7_QUANT"):SetValue(TEMP->C7_QUANT) 
-                        oSection2:Cell("C7_PRECO"):SetValue(TEMP->C7_PRECO) 
-                        oSection2:Cell("C7_TOTAL"):SetValue(TEMP->C7_TOTAL) 
-                        oSection2:PrintLine()
+                    IncProc("Imprimindo dados..."+ Alltrim(TEMP->FORNECEDOR))
+                    //oSection2:Cell("C7_EMISSAO"):SetValue(TEMP->EMISSAO)
+                    oSection2:Cell("C7_PRODUTO"):SetValue(TEMP->PRODUTO)
+                    oSection2:Cell("C7_DESCRI"):SetValue(TEMP->DESCRICAO)
+                    //oSection2:Cell("C7_UM"):SetValue(TEMP->UM)
+                    oSection2:Cell("C7_QUANT"):SetValue(TEMP->QUANTIDADE)
+                    //oSection2:Cell("C7_PRECO"):SetValue(TEMP->PRECO)
+                    oSection2:Cell("C7_TOTAL"):SetValue(TEMP->TOTAL)
+                    oSection2:PrintLine()
 
                         TEMP->(dbSkip())
                 EndDo
@@ -132,14 +132,14 @@ Static Function RPTSTRUC(cNome)
     oReport:SetPortrait() //Orientação em retrato
 
     oSection1 := TRSection():New(oReport,"Pedidos de Compra",{"SC7"},Nil,.F.,.T.)
-    TRCell():New(oSection1,"C7_FORNECE"  ,"TEMP","FORNECEDOR"   ,"@!",100)
+    TRCell():New(oSection1,"FORNECEDOR"  ,"TEMP","FORNECEDOR"   ,"@!",100)
     
 
     oSection2 := TRSection():New(oReport,"Produtos",{"SC7"},Nil,.F.,.T.)
-    TRCell():New(oSection2,"C7_PRODUTO"  ,"TEMP","Produto"    ,"@!",8)
-    TRCell():New(oSection2,"C7_DESCRI"  ,"TEMP","Descricao"    ,"@!",100)
-    TRCell():New(oSection2,"C7_QUANT"  ,"TEMP","Quantidade"    ,"@!",12)
-    TRCell():New(oSection2,"C7_TOTAL"  ,"TEMP","Total"    ,"@!",12)
+    TRCell():New(oSection2,"C7_PRODUTO"  ,"TEMP","PRODUTO"    ,"@!",8)
+    TRCell():New(oSection2,"C7_DESCRI"  ,"TEMP","DESCRICAO"    ,"@!",100)
+    TRCell():New(oSection2,"C7_QUANT"  ,"TEMP","QUANTIDADE"    ,"@!",12)
+    TRCell():New(oSection2,"C7_TOTAL"  ,"TEMP","TOTAL"    ,"@!",12)
 
     oSection1:SetPageBreak(.F.) //Quebra de seção
 

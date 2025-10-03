@@ -53,13 +53,21 @@ Static Function RPTPrint(oReport)
         cQuery += " C7_PRECO PRECO, "
         cQuery += " C7_TOTAL TOTAL "
         cQuery += " FROM SC7990 "
-        cQuery += " WHERE D_E_L_E_T_ = '' AND C7_FORNECE = '"+MV_PAR01+"' "
+        cQuery += " WHERE D_E_L_E_T_ = '' " //AND C7_FORNECE = '"+MV_PAR01+"' "
+
+        //Se MV_PAR01 tiver valor, filtra pelo fornecedor, se for vazio, todos os fornecedores são retornados.
+        If !Empty(MV_PAR01)
+            cQuery += " AND C7_FORNECE = '"+MV_PAR01+"' "
+        Endif
+
+        //Ordena os registros por Fornecedor
+        cQuery += " ORDER BY C7_FORNECE "
 
         //Verifica se a tabela já está aberta
-            If Select("TEMP") <> 0
-                DbSelectArea("TEMP")
-                DbCloseArea()
-            Endif
+        If Select("TEMP") <> 0
+            DbSelectArea("TEMP")
+            DbCloseArea()
+        Endif
 
         //Envia os dados para a tabela TEMP    
         TCQUERY cQuery NEW ALIAS "TEMP"
@@ -71,7 +79,7 @@ Static Function RPTPrint(oReport)
 
 
         While !EoF()
-            If oReport:Cancel() //Se o user Cancela                Exit
+            If oReport:Cancel() //Se o user Cancela  Exit
             Endif 
 
             //Iniciando a primeira seção
